@@ -1,33 +1,51 @@
 package domain;
 
-import java.util.ArrayList;
+import db.ProductDB;
+import db.FileManager;
+
+import java.util.Comparator;
 import java.util.List;
 
 public class Shop {
-    private final List<Product> products;
+    private final ProductDB db;
 
     public Shop() {
-        products = new ArrayList<>();
+        db = new ProductDB();
     }
 
-    public void addProduct(String type, String title) {
-        if (type == null || type.isBlank()) throw new IllegalArgumentException("Invalid type!");
-        int newID = products.size()+1;
-        switch (type) {
-            case "M" -> products.add(new Movie(newID, title));
-            case "G" -> products.add(new Game(newID, title));
-            case "C" -> products.add(new CD(newID, title));
-            default -> throw new IllegalArgumentException("Invalid type!");
+    public void addProduct(String type, String title) throws IllegalArgumentException {
+        db.addProduct(type, title);
+    }
+
+    public String getProductByID(int id) {
+        Product p = db.getProductByID(id);
+        if (p == null) throw new IllegalArgumentException("Product with ID (" + id + ") not found!");
+        else return p.toString();
+    }
+
+    public String getProductsInOrder() {
+        List<Product> allProducts = db.getProducts();
+        allProducts.sort(Comparator.comparing(o -> o.getClass().getName()).reversed());
+        StringBuilder s = new StringBuilder();
+        for (Product p : allProducts) {
+            s.append(p).append("\n\n");
         }
+        return String.valueOf(s);
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public void loadFile(String path) {
+        FileManager.loadFile(path, db);
     }
 
-    public Product getProductByID(int id) {
-        for (Product p : products) {
-            if (p.getId() == id) return p;
-        } return null;
+    public void saveToFile(String path) {
+        FileManager.saveToFile(path, db);
+    }
+
+    public double getPrice(int days, int productID) {
+        return db.getProductByID(productID).getPrice(days);
+    }
+
+    public void setRented(int id) {
+        db.getProductByID(id).setAvailable(false);
     }
 }

@@ -28,7 +28,7 @@ public abstract class Product {
                 "\nAvailable: " + available;
     }
 
-    public void setAvailable (boolean available) {
+    public void setAvailable (boolean available) throws IllegalArgumentException {
         if (this.available == available) {
             String m = "Product is already set as ";
             if (!available) m += "not ";

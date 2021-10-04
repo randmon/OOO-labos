@@ -1,33 +1,18 @@
 package ui;
 
-import domain.Product;
+//UI can only import Shop
 import domain.Shop;
+
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
 
 public class UI {
-	private final Shop shop = new Shop();
-	private final String path = "products.txt";
-
-	public static void main(String[] args) {
-		new UI();
-	}
-
-	public UI() {
-		loadFile();
+	private final Shop shop;
+	public UI(Shop shop) {
+		this.shop = shop;
 		showMenu();
-		saveToFile();
 	}
 
 	public void showMenu() {
-
 		String menu = """
 				1. Add product
 				2. Show product
@@ -54,6 +39,24 @@ public class UI {
 		}
 	}
 
+	private boolean productExists(String idString) {
+		try {
+			int id = Integer.parseInt(idString);
+			shop.getProductByID(id); //Test if product exists
+			return true;
+		} catch (NumberFormatException nfe) {
+			JOptionPane.showMessageDialog(null, "Invalid ID!");
+			return false;
+		} catch (IllegalArgumentException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return false;
+		}
+	}
+
+	private String getID() {
+		return JOptionPane.showInputDialog("Enter the id:");
+	}
+
 	public void addProduct() {
 		String title = JOptionPane.showInputDialog("Enter the title:");
 		String type = JOptionPane.showInputDialog("""
@@ -69,115 +72,43 @@ public class UI {
 		}
 	}
 
+	public void showAllProducts() {
+		String s = shop.getProductsInOrder();
+		JOptionPane.showMessageDialog(null, s);
+	}
+
 	public void showProduct() {
-		String idString = JOptionPane.showInputDialog("Enter the id:");
-		try {
+		String idString = getID();
+		if (productExists(idString)) {
 			int id = Integer.parseInt(idString);
-			Product p = shop.getProductByID(id);
-			JOptionPane.showMessageDialog(null, Objects.requireNonNullElseGet(p, () -> "Product with ID (" + id + ") not found!"));
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Invalid ID!");
+			JOptionPane.showMessageDialog(null, shop.getProductByID(id));
 		}
 	}
 
 	public void showPrice() {
-		String idString = JOptionPane.showInputDialog("Enter the id:");
-		try {
+		String idString = getID();
+		if (productExists(idString)) {
 			int id = Integer.parseInt(idString);
-			Product p = shop.getProductByID(id);
-			JOptionPane.showMessageDialog(null, Objects.requireNonNullElseGet(p, () -> "Product with ID (" + id + ") not found!"));
-			if (p != null){
-				String days = JOptionPane.showInputDialog("Enter the number of days:");
-				try {
-					JOptionPane.showMessageDialog(null, p.getPrice(Integer.parseInt(days)));
-				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(null, "Invalid number of days!");
-				}
-			} else {
-				JOptionPane.showMessageDialog(null, "Product with ID (" + id + ") not found!");
+			JOptionPane.showMessageDialog(null, shop.getProductByID(id));
+			String days = JOptionPane.showInputDialog("Enter the number of days:");
+			try {
+				JOptionPane.showMessageDialog(null, shop.getPrice(Integer.parseInt(days), id));
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Invalid number of days!");
 			}
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Invalid ID!");
 		}
-	}
-
-	public void showAllProducts() {
-		List<Product> allProducts = shop.getProducts();
-		allProducts.sort(Comparator.comparing(o -> o.getClass().getName()).reversed());
-		StringBuilder s = new StringBuilder();
-		for (Product p : allProducts) {
-			s.append(p).append("\n\n");
-		}
-		JOptionPane.showMessageDialog(null, s);
 	}
 
 	private void setRented() {
-		String idString = JOptionPane.showInputDialog("Enter the id:");
-		try {
-			int id = Integer.parseInt(idString);
-			Product p = shop.getProductByID(id);
-			if (p != null) {
-				p.setAvailable(false);
-				JOptionPane.showMessageDialog(null, "Product successfully set as not available.");
-			} else {
-				JOptionPane.showMessageDialog(null, "Product with ID (" + id + ") not found!");
+		String idString = getID();
+		if (productExists(idString)) {
+			try {
+				shop.setRented(Integer.parseInt(idString));
+				JOptionPane.showMessageDialog(null, "Product successfully set as not available.}");
+			} catch (IllegalArgumentException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Invalid ID!");
-		} catch (IllegalArgumentException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
 
-	private void saveToFile() {
-		//Producten opslaan in een bestand
-		try {
-			FileWriter writer = new FileWriter(path);
-			for (Product p : shop.getProducts()) {
-				writer.write(p.toString() + "\n");
-			}
-			writer.close();
-			System.out.println("Successfully wrote (" + shop.getProducts().size() + ") products to file.");
-		} catch (IOException e) {
-			System.out.println(">>> File error!!!");
-			e.printStackTrace();
-		}
-	}
-
-	private void loadFile() {
-		File file = new File(path);
-		try {
-			Scanner scanner = new Scanner(file);
-			while (scanner.hasNextLine()) {
-				//Type
-				String type = scanner.nextLine();
-				type = type.substring(1, 2); //Only first letter of Type
-				//ID
-				String id = scanner.nextLine();
-				//Title
-				String title = scanner.nextLine();
-				title = title.substring(7);
-				//Available
-				String av = scanner.nextLine();
-				boolean available = av.equals("Available: true");
-
-				//Try to make product
-				try {
-					shop.addProduct(type, title);
-					if (!available) {
-						Product p = shop.getProductByID(Integer.parseInt(id));
-						p.setAvailable(false);
-					}
-				} catch (NumberFormatException nfe) {
-					System.out.println("Invalid ID in file!!");
-				}
-			}
-			scanner.close();
-			System.out.println("Successfully loaded (" + shop.getProducts().size() + ") products from file.");
-		} catch (FileNotFoundException fnfe ){
-			System.out.println("File doesn't exist yet.");
-		} catch (Exception e) {
-			System.out.println("Error found while reading file!!");
-		}
-	}
 }
