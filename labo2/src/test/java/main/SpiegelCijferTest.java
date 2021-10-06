@@ -13,17 +13,17 @@ public class SpiegelCijferTest {
 
     @Test
     public void coderen() {
-        System.out.println(sc.coderen(abc));
-        System.out.println(sc.coderen(lorem));
+        System.out.println(sc.code(abc));
+        System.out.println(sc.code(lorem));
 
-        assertEquals(cba, sc.coderen(abc));
-        assertEquals(merol, sc.coderen(lorem));
+        assertEquals(cba, sc.code(abc));
+        assertEquals(merol, sc.code(lorem));
     }
 
     @Test
     public void decoderen() {
-        assertEquals(abc, sc.decoderen(cba));
-        assertEquals(lorem, sc.decoderen(merol));
+        assertEquals(abc, sc.decode(cba));
+        assertEquals(lorem, sc.decode(merol));
     }
 
 }

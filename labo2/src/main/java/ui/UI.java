@@ -1,6 +1,5 @@
 package ui;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,21 +9,19 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import main.CaesarCijfer;
+import main.CodingContext;
 import main.SpiegelCijfer;
 
-public class Geheimschrift extends Application {
+public class UI {
     private VBox root;
     private TextArea input, output;
     private ComboBox comboBox;
+    private CodingContext context;
 
-    public static void main(String[] args) {
-        launch();
-    }
-
-    @Override
-    public void start(Stage stage) {
-
+    public UI(Stage stage) {
+        context = new CodingContext();
         root = new VBox();
         Scene scene = new Scene(root);
         root.setAlignment(Pos.CENTER);
@@ -94,13 +91,12 @@ public class Geheimschrift extends Application {
             try {
                 String cijfer = (String) comboBox.getValue();
                 if (cijfer.equals("Caesar")) {
-                    CaesarCijfer cc = new CaesarCijfer(Integer.parseInt(offsetInput.getText()));
-                    output.setText(cc.coderen(input.getText()));
-                    errorLabel.setVisible(false);
+                    context.setCijfer(new CaesarCijfer(Integer.parseInt(offsetInput.getText())));
                 } else if (cijfer.equals("Mirror")) {
-                    SpiegelCijfer sc = new SpiegelCijfer();
-                    output.setText(sc.coderen(input.getText()));
+                    context.setCijfer(new SpiegelCijfer());
                 }
+                output.setText(context.code(input.getText()));
+                errorLabel.setVisible(false);
             } catch (NumberFormatException nfe) {
                 errorLabel.setVisible(true);
                 errorLabel.setText("Please enter a valid offset!");
@@ -111,13 +107,12 @@ public class Geheimschrift extends Application {
             try {
                 String cijfer = (String) comboBox.getValue();
                 if (cijfer.equals("Caesar")) {
-                    CaesarCijfer cc = new CaesarCijfer(Integer.parseInt(offsetInput.getText()));
-                    output.setText(cc.decoderen(input.getText()));
-                    errorLabel.setVisible(false);
+                    context.setCijfer(new CaesarCijfer(Integer.parseInt(offsetInput.getText())));
                 } else if (cijfer.equals("Mirror")) {
-                    SpiegelCijfer sc = new SpiegelCijfer();
-                    output.setText(sc.decoderen(input.getText()));
+                    context.setCijfer(new SpiegelCijfer());
                 }
+                output.setText(context.decode(input.getText()));
+                errorLabel.setVisible(false);
             } catch (NumberFormatException nfe) {
                 errorLabel.setVisible(true);
                 errorLabel.setText("Please enter a valid offset!");

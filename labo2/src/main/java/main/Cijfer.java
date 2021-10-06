@@ -1,6 +1,6 @@
 package main;
 
-public abstract class Cijfer {
-    public abstract String coderen(String text);
-    public abstract String decoderen (String geheim);
+public interface Cijfer {
+    String code(String text);
+    String decode(String geheim);
 }

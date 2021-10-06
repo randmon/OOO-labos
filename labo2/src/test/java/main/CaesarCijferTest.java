@@ -12,19 +12,19 @@ public class CaesarCijferTest {
 
     @Test
     public void stringCoderen() {
-        System.out.println(cc.coderen(abc));
-        System.out.println(cc.coderen(lorem));
+        System.out.println(cc.code(abc));
+        System.out.println(cc.code(lorem));
 
-        assertEquals(bcd, cc.coderen(abc));
-        assertEquals(mpsfn, cc.coderen(lorem));
+        assertEquals(bcd, cc.code(abc));
+        assertEquals(mpsfn, cc.code(lorem));
     }
 
     @Test
     public void stringDecoderen() {
-        System.out.println(cc.decoderen(bcd));
-        System.out.println(cc.decoderen(mpsfn));
+        System.out.println(cc.decode(bcd));
+        System.out.println(cc.decode(mpsfn));
 
-        assertEquals(abc, cc.decoderen(bcd));
-        assertEquals(abc, cc.decoderen(cc.coderen(abc)));
+        assertEquals(abc, cc.decode(bcd));
+        assertEquals(abc, cc.decode(cc.code(abc)));
     }
 }

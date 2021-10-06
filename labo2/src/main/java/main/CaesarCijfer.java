@@ -1,6 +1,6 @@
 package main;
 
-public class CaesarCijfer extends Cijfer {
+public class CaesarCijfer implements Cijfer {
     private final int offset;
 
     public CaesarCijfer(int offset) {
@@ -8,12 +8,12 @@ public class CaesarCijfer extends Cijfer {
     }
 
     @Override
-    public String coderen(String text) {
+    public String code(String text) {
         return applyOffset(text, offset);
     }
 
     @Override
-    public String decoderen(String text) {
+    public String decode(String text) {
         return applyOffset(text, -offset);
     }
 
