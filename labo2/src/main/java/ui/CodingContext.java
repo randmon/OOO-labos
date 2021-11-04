@@ -1,4 +1,7 @@
-package main;
+package ui;
+
+
+import main.Cijfer;
 
 public class CodingContext {
     public Cijfer cijfer;

@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import main.CaesarCijfer;
-import main.CodingContext;
 import main.SpiegelCijfer;
 
 public class UI {
