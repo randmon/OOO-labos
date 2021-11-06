@@ -14,6 +14,22 @@ public class AccountLogger implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("logger");
+        switch ((String) arg) {
+            case "account" -> logAccount();
+            case "deposit" -> logDeposit();
+            case "withdrawal" -> logWithdrawal();
+        }
+    }
+
+    private void logWithdrawal() {
+        System.out.println(bank.getLastWithdrawal());
+    }
+
+    private void logDeposit() {
+        System.out.println(bank.getLastDeposit());
+    }
+
+    private void logAccount() {
+        System.out.println("Nr: " + bank.getLastAccount().getAccountNumber() + ", total: " + bank.getAmountOfAccounts() + " account(s)");
     }
 }

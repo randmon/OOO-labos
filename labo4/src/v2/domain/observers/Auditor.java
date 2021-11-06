@@ -15,8 +15,11 @@ public class Auditor implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("Nieuwe rekening geopend op datum " + LocalDate.now() +
-                " met nummer " + bank.getLastAccount().getAccountNumber() +
-                " en saldo " + bank.getLastAccount().getSaldo());
+        if (arg.equals("account")) {
+        System.out.println("New account opened on " + LocalDate.now() +
+                " with nr. " + bank.getLastAccount().getAccountNumber() +
+                " and balance " + bank.getLastAccount().getBalance());
+
+        }
     }
 }

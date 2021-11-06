@@ -2,11 +2,11 @@ package v2.domain;
 
 public class Account {
     private int accountNumber;
-    private double saldo;
+    private double balance;
 
-    public Account(int accountNumber, double saldo) {
+    public Account(int accountNumber, double balance) {
         setAccountNumber(accountNumber);
-        setSaldo(saldo);
+        setBalance(balance);
     }
 
     public int getAccountNumber() {
@@ -17,13 +17,13 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public double getSaldo() {
-        return saldo;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setSaldo(double saldo) {
-        if (saldo < 0) throw new IllegalArgumentException("Saldo cannot be negative");
-        this.saldo = saldo;
+    public void setBalance(double balance) {
+        if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
+        this.balance = balance;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Account {
         Account account = (Account) o;
 
         if (accountNumber != account.accountNumber) return false;
-        return Double.compare(account.saldo, saldo) == 0;
+        return Double.compare(account.balance, balance) == 0;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Account {
         int result;
         long temp;
         result = accountNumber;
-        temp = Double.doubleToLongBits(saldo);
+        temp = Double.doubleToLongBits(balance);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
