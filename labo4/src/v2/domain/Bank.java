@@ -1,9 +1,16 @@
-package v1.domain;
+package v2.domain;
+
+import v1.domain.Account;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Bank extends Subject {
-    private final ArrayList<Account> accounts = new ArrayList<>();
+public class Bank extends Observable {
+    private ArrayList<Account> accounts;
+
+    public Bank() {
+        accounts = new ArrayList<>();
+    }
 
     public ArrayList<Account> getAccounts() {
         return accounts;
@@ -11,7 +18,8 @@ public class Bank extends Subject {
 
     public void addAccount(Account account) {
         accounts.add(account);
-        this.notifyAllObservers();
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public void addAccount(int number, double saldo) {
