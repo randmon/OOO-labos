@@ -3,6 +3,8 @@ package v2.domain;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import static v2.domain.Event.*;
+
 public class Bank extends Observable {
     private ArrayList<Account> accounts;
     private String lastDeposit, lastWithdrawal;
@@ -18,7 +20,7 @@ public class Bank extends Observable {
     public void addAccount(Account account) {
         accounts.add(account);
         setChanged();
-        notifyObservers("account");
+        notifyObservers(ACCOUNT);
     }
 
     public void addAccount(int number, double balance) {
@@ -51,7 +53,7 @@ public class Bank extends Observable {
         account.setBalance(account.getBalance() + amount);
         lastDeposit = "New deposit on account: " + accountNumber + ", amount: " + amount + ", new balance: " + account.getBalance();
         setChanged();
-        notifyObservers("deposit");
+        notifyObservers(DEPOSIT);
     }
 
     public String getLastDeposit() {
@@ -69,7 +71,7 @@ public class Bank extends Observable {
         account.setBalance(newBalance);
         lastWithdrawal = "New withdrawal on account: " + accountNumber + ", amount: " + amount + ", new balance: " + newBalance;
         setChanged();
-        notifyObservers("withdrawal");
+        notifyObservers(WITHDRAWAL);
     }
 
     public String getLastWithdrawal() {

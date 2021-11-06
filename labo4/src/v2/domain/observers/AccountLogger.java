@@ -1,6 +1,7 @@
 package v2.domain.observers;
 
 import v2.domain.Bank;
+import v2.domain.Event;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -14,10 +15,10 @@ public class AccountLogger implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        switch ((String) arg) {
-            case "account" -> logAccount();
-            case "deposit" -> logDeposit();
-            case "withdrawal" -> logWithdrawal();
+        switch ((Event) arg) {
+            case ACCOUNT -> logAccount();
+            case DEPOSIT -> logDeposit();
+            case WITHDRAWAL -> logWithdrawal();
         }
     }
 

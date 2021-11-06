@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.Observable;
 import java.util.Observer;
 
+import static v2.domain.Event.ACCOUNT;
+
 public class Auditor implements Observer {
     private Bank bank;
 
@@ -15,7 +17,7 @@ public class Auditor implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (arg.equals("account")) {
+        if (arg.equals(ACCOUNT)) {
         System.out.println("New account opened on " + LocalDate.now() +
                 " with nr. " + bank.getLastAccount().getAccountNumber() +
                 " and balance " + bank.getLastAccount().getBalance());
