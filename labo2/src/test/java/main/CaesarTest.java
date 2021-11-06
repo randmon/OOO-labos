@@ -3,15 +3,15 @@ package main;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class CaesarCijferTest {
-    private final CaesarCijfer cc = new CaesarCijfer(1);
+public class CaesarTest {
+    private final Caesar cc = new Caesar(1);
     private final String abc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .;!";
     private final String bcd = "bcdefghijklmnopqrstuvwxyzaBCDEFGHIJKLMNOPQRSTUVWXYZA .;!";
     private final String lorem = "Lorem, Ipsum Sit Amet!!!";
     private final String mpsfn = "Mpsfn, Jqtvn Tju Bnfu!!!";
 
     @Test
-    public void stringCoderen() {
+    public void code() {
         System.out.println(cc.code(abc));
         System.out.println(cc.code(lorem));
 
@@ -20,7 +20,7 @@ public class CaesarCijferTest {
     }
 
     @Test
-    public void stringDecoderen() {
+    public void decode() {
         System.out.println(cc.decode(bcd));
         System.out.println(cc.decode(mpsfn));
 

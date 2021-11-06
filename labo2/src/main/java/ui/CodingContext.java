@@ -1,19 +1,20 @@
 package ui;
 
+import main.Cipher;
 
-import main.Cijfer;
-
+/**Context class*/
 public class CodingContext {
-    public Cijfer cijfer;
+    public Cipher cipher;
 
-    public void setCijfer(Cijfer cijfer) {
-        this.cijfer = cijfer;
+    /**Behaviour is interchangeable at runtime*/
+    public void setCipher(Cipher cipher) {
+        this.cipher = cipher;
     }
 
     public String code(String s) {
-        return cijfer.code(s);
+        return cipher.code(s);
     }
     public String decode(String s) {
-        return cijfer.decode(s);
+        return cipher.decode(s);
     }
 }

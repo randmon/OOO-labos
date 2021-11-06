@@ -1,10 +1,16 @@
 package main;
 
-public class CaesarCijfer implements Cijfer {
+/**Concrete strategy class*/
+public class Caesar implements Cipher {
     private final int offset;
 
-    public CaesarCijfer(int offset) {
+    public Caesar(int offset) {
         this.offset = offset;
+    }
+
+    //Default offset is 1
+    public Caesar() {
+       offset = 1;
     }
 
     @Override
@@ -13,8 +19,8 @@ public class CaesarCijfer implements Cijfer {
     }
 
     @Override
-    public String decode(String text) {
-        return applyOffset(text, -offset);
+    public String decode(String secret) {
+        return applyOffset(secret, -offset);
     }
 
     private String applyOffset(String text, int offset) {
@@ -36,6 +42,6 @@ public class CaesarCijfer implements Cijfer {
                 result.append(character);
             }
         }
-        return String.valueOf(result);
+        return result.toString();
     }
 }

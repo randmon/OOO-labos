@@ -10,8 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import main.CaesarCijfer;
-import main.SpiegelCijfer;
+import main.Cipher;
 
 public class UI {
     private VBox root;
@@ -35,25 +34,11 @@ public class UI {
         root.getChildren().add(input);
 
         comboBox = new ComboBox();
-        comboBox.getItems().addAll(
-                "Caesar",
-                "Mirror"
-        );
+        comboBox.getItems().addAll("Caesar", "Mirror", "Morse");
         comboBox.setPromptText("Choose a cipher");
         root.getChildren().add(comboBox);
 
-        HBox offsetHBox = new HBox();
-        offsetHBox.setAlignment(Pos.CENTER);
-        offsetHBox.setSpacing(10);
-        offsetHBox.getChildren().add(new Label("Offset"));
-        TextField offsetInput = new TextField();
-        offsetInput.setPromptText("0");
-        offsetInput.setMaxWidth(50);
-        offsetHBox.getChildren().add(offsetInput);
-        root.getChildren().add(offsetHBox);
-        offsetHBox.setVisible(false);
-
-        Label errorLabel = new Label("ERROR");
+        Label errorLabel = new Label();
         errorLabel.textFillProperty().setValue(Color.RED);
         root.getChildren().add(errorLabel);
         errorLabel.setVisible(false);
@@ -81,40 +66,33 @@ public class UI {
 
         //ComboBox event listener
         comboBox.setOnAction(event -> {
-            Object selected = comboBox.getSelectionModel().getSelectedItem();
-            offsetHBox.setVisible("Caesar".equals(selected));
+            String cijfer = (String) comboBox.getValue();
+            try {
+                Class cijferClass = Class.forName("main." + cijfer);
+                Cipher cijferObject = (Cipher) cijferClass.getConstructor().newInstance();
+                context.setCipher(cijferObject);
+                errorLabel.setVisible(false);
+            } catch (Exception e) {
+                errorLabel.setText(e.getMessage());
+                errorLabel.setVisible(true);
+            }
         });
 
         //Button event listeners
         encode.setOnAction(actionEvent -> {
             try {
-                String cijfer = (String) comboBox.getValue();
-                if (cijfer.equals("Caesar")) {
-                    context.setCijfer(new CaesarCijfer(Integer.parseInt(offsetInput.getText())));
-                } else if (cijfer.equals("Mirror")) {
-                    context.setCijfer(new SpiegelCijfer());
-                }
                 output.setText(context.code(input.getText()));
-                errorLabel.setVisible(false);
-            } catch (NumberFormatException nfe) {
+            } catch (NullPointerException npe) {
+                errorLabel.setText("Please select a valid cipher");
                 errorLabel.setVisible(true);
-                errorLabel.setText("Please enter a valid offset!");
             }
         });
-
         decode.setOnAction(actionEvent -> {
             try {
-                String cijfer = (String) comboBox.getValue();
-                if (cijfer.equals("Caesar")) {
-                    context.setCijfer(new CaesarCijfer(Integer.parseInt(offsetInput.getText())));
-                } else if (cijfer.equals("Mirror")) {
-                    context.setCijfer(new SpiegelCijfer());
-                }
                 output.setText(context.decode(input.getText()));
-                errorLabel.setVisible(false);
-            } catch (NumberFormatException nfe) {
+            } catch (NullPointerException npe) {
+                errorLabel.setText("Please select a valid cipher");
                 errorLabel.setVisible(true);
-                errorLabel.setText("Please enter a valid offset!");
             }
         });
     }
