@@ -1,4 +1,5 @@
 module labo2 {
     requires javafx.controls;
-    exports ui;
+    exports cipherApp.ui;
+    exports duckApp.ui;
 }

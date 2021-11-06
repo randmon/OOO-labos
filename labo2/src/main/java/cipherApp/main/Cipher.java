@@ -1,4 +1,4 @@
-package main;
+package cipherApp.main;
 
 /**Strategy interface*/
 public interface Cipher {

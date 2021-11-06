@@ -1,4 +1,4 @@
-package main;
+package cipherApp.main;
 
 public class Morse implements Cipher {
     private String[] morseCode

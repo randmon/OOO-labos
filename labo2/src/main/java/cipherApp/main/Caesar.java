@@ -1,4 +1,4 @@
-package main;
+package cipherApp.main;
 
 /**Concrete strategy class*/
 public class Caesar implements Cipher {

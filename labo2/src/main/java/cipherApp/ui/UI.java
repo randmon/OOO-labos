@@ -1,4 +1,4 @@
-package ui;
+package cipherApp.ui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import main.Cipher;
+import cipherApp.main.Cipher;
 
 public class UI {
     private VBox root;
@@ -68,7 +68,7 @@ public class UI {
         comboBox.setOnAction(event -> {
             String cijfer = (String) comboBox.getValue();
             try {
-                Class cijferClass = Class.forName("main." + cijfer);
+                Class cijferClass = Class.forName("cipherApp.main." + cijfer);
                 Cipher cijferObject = (Cipher) cijferClass.getConstructor().newInstance();
                 context.setCipher(cijferObject);
                 errorLabel.setVisible(false);

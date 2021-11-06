@@ -1,10 +1,10 @@
-package ui;
+package cipherApp.ui;
 
-import main.Cipher;
+import cipherApp.main.Cipher;
 
 /**Context class*/
 public class CodingContext {
-    public Cipher cipher;
+    private Cipher cipher;
 
     /**Behaviour is interchangeable at runtime*/
     public void setCipher(Cipher cipher) {
