@@ -1,4 +1,4 @@
-package domain;
+package domain.ciphers;
 
 /**Strategy interface*/
 public interface Cipher {

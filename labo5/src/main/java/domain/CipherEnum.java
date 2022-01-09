@@ -18,6 +18,6 @@ public enum CipherEnum {
     }
 
     public String getClassName() {
-        return "domain." + name;
+        return "domain.ciphers." + name;
     }
 }

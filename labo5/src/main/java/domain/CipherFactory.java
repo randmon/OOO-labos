@@ -1,5 +1,7 @@
 package domain;
 
+import domain.ciphers.Cipher;
+
 public class CipherFactory {
     public static Cipher getCipher(String name) {
         CipherEnum ciphers = CipherEnum.valueOf(name.toUpperCase());

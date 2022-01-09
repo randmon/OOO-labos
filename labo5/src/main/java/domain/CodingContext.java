@@ -1,5 +1,7 @@
 package domain;
 
+import domain.ciphers.Cipher;
+
 import java.util.ArrayList;
 import java.util.List;
 

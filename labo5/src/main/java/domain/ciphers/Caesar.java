@@ -1,5 +1,4 @@
-package domain;
-
+package domain.ciphers;
 
 /**Concrete strategy class*/
 public class Caesar implements Cipher {

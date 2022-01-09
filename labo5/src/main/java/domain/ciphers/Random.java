@@ -1,4 +1,4 @@
-package domain;
+package domain.ciphers;
 
 import java.util.HashMap;
 import java.util.Map;

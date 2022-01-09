@@ -1,8 +1,7 @@
-package domain;
+package domain.ciphers;
 
 /**Concrete strategy class*/
 public class Mirror implements Cipher {
-
     public String code(String text) {
         return mirrorText(text);
     }
@@ -12,6 +11,6 @@ public class Mirror implements Cipher {
     }
 
     private String mirrorText(String text) {
-        return String.valueOf(new StringBuilder().append(text).reverse());
+        return new StringBuilder().append(text).reverse().toString();
     }
 }

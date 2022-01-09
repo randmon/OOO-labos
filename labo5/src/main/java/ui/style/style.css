@@ -1,0 +1,64 @@
+.vbox {
+    -fx-spacing: 10;
+    -fx-padding: 10 10 10 10;
+    -fx-background-color: #c5eee4;
+    -fx-pref-height: 350;
+    -fx-pref-width: 500;
+}
+
+.text-area {
+    -fx-font-family: Consolas;
+    -fx-font-size: 14;
+    -fx-text-fill: #414248;
+}
+
+.text-area .content {
+    -fx-background-color: white;
+}
+
+.label {
+    -fx-text-fill: red;
+    -fx-font-size: 14;
+}
+
+.buttonsHB {
+    -fx-spacing: 10;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+}
+.button:hover{
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+}
+.button:pressed{
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+.combo-box {
+    -fx-cursor: hand;
+}
+.combo-box .list-cell {
+    -fx-background: white;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.combo-box-popup .list-view {
+    -fx-background-color: white;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 8, 0, 0, 0 );
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: white;
+}
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: #86eede;
+}
+.combo-box-base {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+}
