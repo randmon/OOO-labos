@@ -1,23 +1,23 @@
 package view;
 
-import javafx.geometry.Insets;
+import controller.CipherController;
+import controller.LogController;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class View {
-    private Scene scene;
-    private HBox root;
+    public View(CipherController cCtl, LogController lCtl) {
+        HBox root = new HBox();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style/style.css")).toExternalForm());
 
-    public View(Stage stage, CipherView cipherView, LogView logView) {
-        root = new HBox();
-        root.setPadding(new Insets(10, 10, 10, 10));
-        scene = new Scene(root);
+        root.getChildren().add(new CipherView(cCtl));
+        root.getChildren().add(new LogView(lCtl));
 
-        root.setSpacing(20);
-        root.getChildren().add(cipherView.getRoot());
-        root.getChildren().add(logView.getRoot());
-
+        Stage stage = new Stage();
         stage.setTitle("Ciphers!!");
         stage.setScene(scene);
         stage.show();

@@ -4,31 +4,30 @@ import model.ciphers.CipherEnum;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 public class CipherFacade extends Observable {
     private final CipherContext context;
-    private String cipher;
+    private String input, output, cipher;
 
     public CipherFacade() {
         this.context = new CipherContext();
     }
 
-    public void setCipher(String cipher) {
-        context.setCipher(CipherFactory.getCipher(cipher));
-        this.cipher = cipher;
+    public void setCipher(String cipherName) {
+        cipher = cipherName;
+        context.setCipher(CipherFactory.getCipher(cipherName));
     }
 
     public void code(String text) {
-        String output = context.code(text);
-        setChanged();
-        notifyObservers(new String[] {"coded", text, output, cipher});
+        input = text;
+        output = context.code(text);
+        notifyObservers(CipherEvent.CODE);
     }
 
     public void decode(String text) {
-        String output = context.decode(text);
-        setChanged();
-        notifyObservers(new String[] {"decoded", text, output, cipher});
+        input = text;
+        output = context.decode(text);
+        notifyObservers(CipherEvent.DECODE);
     }
 
     public List<String> getCipherList() {
@@ -37,5 +36,17 @@ public class CipherFacade extends Observable {
             ciphers.add(c.getName());
         }
         return ciphers;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public String getInput() {
+        return input;
+    }
+
+    public String getCipherName() {
+        return cipher;
     }
 }

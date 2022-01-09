@@ -1,14 +1,13 @@
 package controller;
 
+import model.CipherEvent;
 import model.CipherFacade;
 import view.CipherView;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 public class CipherController implements Observer {
-    private CipherFacade model;
+    private final CipherFacade model;
     private CipherView view;
 
     public CipherController(CipherFacade model) {
@@ -37,10 +36,8 @@ public class CipherController implements Observer {
         model.setCipher(cipher);
     }
 
-
-    // Method called by the model
     @Override
-    public void update(Observable o, Object arg) {
-        view.setResult(((String[]) arg)[2]);
+    public void update(CipherEvent event) {
+        view.setResult(model.getOutput());
     }
 }

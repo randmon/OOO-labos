@@ -1,14 +1,11 @@
 package controller;
 
-import javafx.scene.paint.Color;
+import model.CipherEvent;
 import model.CipherFacade;
 import view.LogView;
 
-import java.util.Observable;
-import java.util.Observer;
-
 public class LogController implements Observer {
-    private CipherFacade model;
+    private final CipherFacade model;
     private LogView view;
 
     public LogController(CipherFacade model){
@@ -21,10 +18,9 @@ public class LogController implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        String[] args = (String[]) arg;
-        String result = String.join(" - ", args);
-        Color color = args[0].equals("coded") ? Color.BLUE : Color.GREEN;
-        view.updateDisplay(result, color);
+    public void update(CipherEvent event) {
+        String result = event.getName() + " - " + model.getCipherName() + " - " + model.getInput() + " - " + model.getOutput();
+        String s = event.equals(CipherEvent.CODE) ? "code" : "decode";
+        view.updateDisplay(result, s);
     }
 }
