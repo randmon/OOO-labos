@@ -1,7 +1,7 @@
 package cipherApp.main;
 
 public class Morse implements Cipher {
-    private String[] morseCode
+    private final String[] morseCode
             = { ".-",   "-...", "-.-.", "-..",  ".",
             "..-.", "--.",  "....", "..",   ".---",
             "-.-",  ".-..", "--",   "-.",   "---",
@@ -32,7 +32,7 @@ public class Morse implements Cipher {
     @Override
     public String decode(String secret) {
         StringBuilder result = new StringBuilder();
-        String[] letters = secret.split("\s");
+        String[] letters = secret.split("\\s");
         for (String l : letters) {
             if (l.equals("|")) result.append(" ");
             else {

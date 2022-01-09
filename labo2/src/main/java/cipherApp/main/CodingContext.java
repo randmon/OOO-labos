@@ -1,6 +1,4 @@
-package cipherApp.ui;
-
-import cipherApp.main.Cipher;
+package cipherApp.main;
 
 /**Context class*/
 public class CodingContext {

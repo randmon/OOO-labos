@@ -1,5 +1,6 @@
 package cipherApp.ui;
 
+import cipherApp.main.CodingContext;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,14 +14,13 @@ import javafx.stage.Stage;
 import cipherApp.main.Cipher;
 
 public class UI {
-    private VBox root;
-    private TextArea input, output;
-    private ComboBox comboBox;
-    private CodingContext context;
+    private final TextArea input, output;
+    private final ComboBox<String> comboBox;
+    private final CodingContext context;
 
     public UI(Stage stage) {
         context = new CodingContext();
-        root = new VBox();
+        VBox root = new VBox();
         Scene scene = new Scene(root);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
@@ -33,7 +33,7 @@ public class UI {
         input.setMaxHeight(100);
         root.getChildren().add(input);
 
-        comboBox = new ComboBox();
+        comboBox = new ComboBox<>();
         comboBox.getItems().addAll("Caesar", "Mirror", "Morse");
         comboBox.setPromptText("Choose a cipher");
         root.getChildren().add(comboBox);
@@ -66,9 +66,9 @@ public class UI {
 
         //ComboBox event listener
         comboBox.setOnAction(event -> {
-            String cijfer = (String) comboBox.getValue();
+            String cijfer = comboBox.getValue();
             try {
-                Class cijferClass = Class.forName("cipherApp.main." + cijfer);
+                Class<?> cijferClass = Class.forName("cipherApp.main." + cijfer);
                 Cipher cijferObject = (Cipher) cijferClass.getConstructor().newInstance();
                 context.setCipher(cijferObject);
                 errorLabel.setVisible(false);
