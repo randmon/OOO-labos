@@ -12,19 +12,7 @@ public abstract class LetterLezer {
         return '*';
     }
 
-    public String getTekst() {
-        return tekst;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
     public void setTekst(String tekst) {
         this.tekst = tekst;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 }
