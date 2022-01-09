@@ -11,7 +11,7 @@ public class Bank extends Subject {
 
     public void addAccount(Account account) {
         accounts.add(account);
-        this.notifyAllObservers();
+        notifyObservers();
     }
 
     public void addAccount(int number, double saldo) {

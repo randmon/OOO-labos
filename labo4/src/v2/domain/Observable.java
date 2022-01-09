@@ -1,11 +1,11 @@
-package v1.domain;
+package v2.domain;
 
-import v1.domain.observers.Observer;
+import v2.domain.observers.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Subject {
+public abstract class Observable {
     private final List<Observer> observers = new ArrayList<>();
 
     public void addObserver(Observer o) {
@@ -16,7 +16,7 @@ public abstract class Subject {
         observers.remove(o);
     }
 
-    public void notifyObservers() {
-        observers.forEach(Observer::update);
+    public void notifyObservers(BankEvent event) {
+        observers.forEach(o -> o.update(event));
     }
 }

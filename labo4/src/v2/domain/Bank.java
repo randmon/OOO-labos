@@ -1,12 +1,11 @@
 package v2.domain;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
-import static v2.domain.Event.*;
+import static v2.domain.BankEvent.*;
 
 public class Bank extends Observable {
-    private ArrayList<Account> accounts;
+    private final ArrayList<Account> accounts;
     private String lastDeposit, lastWithdrawal;
 
     public Bank() {
@@ -17,14 +16,9 @@ public class Bank extends Observable {
         return accounts;
     }
 
-    public void addAccount(Account account) {
-        accounts.add(account);
-        setChanged();
-        notifyObservers(ACCOUNT);
-    }
-
     public void addAccount(int number, double balance) {
-        addAccount(new Account(number, balance));
+        accounts.add(new Account(number, balance));
+        notifyObservers(ADD_ACCOUNT);
     }
 
     public int getAmountOfAccounts() {
@@ -52,7 +46,6 @@ public class Bank extends Observable {
 
         account.setBalance(account.getBalance() + amount);
         lastDeposit = "New deposit on account: " + accountNumber + ", amount: " + amount + ", new balance: " + account.getBalance();
-        setChanged();
         notifyObservers(DEPOSIT);
     }
 
@@ -70,7 +63,6 @@ public class Bank extends Observable {
         if (newBalance < 0) throw new IllegalArgumentException("Not enough money on this account");
         account.setBalance(newBalance);
         lastWithdrawal = "New withdrawal on account: " + accountNumber + ", amount: " + amount + ", new balance: " + newBalance;
-        setChanged();
         notifyObservers(WITHDRAWAL);
     }
 

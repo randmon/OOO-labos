@@ -5,7 +5,7 @@ import v1.domain.Bank;
 import java.time.LocalDate;
 
 public class Auditor implements Observer {
-    private Bank bank;
+    private final Bank bank;
 
     public Auditor(Bank bank) {
         this.bank = bank;

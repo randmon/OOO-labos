@@ -1,22 +1,19 @@
 package v2.domain.observers;
 
 import v2.domain.Bank;
-import v2.domain.Event;
-
-import java.util.Observable;
-import java.util.Observer;
+import v2.domain.BankEvent;
 
 public class AccountLogger implements Observer {
-    private Bank bank;
+    private final Bank bank;
 
     public AccountLogger(Bank bank) {
         this.bank = bank;
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        switch ((Event) arg) {
-            case ACCOUNT -> logAccount();
+    public void update(BankEvent event) {
+        switch (event) {
+            case ADD_ACCOUNT -> logAccount();
             case DEPOSIT -> logDeposit();
             case WITHDRAWAL -> logWithdrawal();
         }

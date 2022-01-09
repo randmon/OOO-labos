@@ -3,7 +3,7 @@ package v1.domain.observers;
 import v1.domain.Bank;
 
 public class AccountLogger implements Observer {
-    private Bank bank;
+    private final Bank bank;
 
     public AccountLogger(Bank bank) {
         this.bank = bank;
