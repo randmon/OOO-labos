@@ -17,13 +17,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class UI {
-    private VBox root;
     private Duck duck;
-    private ComboBox comboBox;
-    private TextArea output;
+    private final ComboBox<String> comboBox;
+    private final TextArea output;
 
     public UI(Stage stage) {
-        root = new VBox();
+        VBox root = new VBox();
         Scene scene = new Scene(root);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
@@ -35,7 +34,7 @@ public class UI {
         ImageView imageView = new ImageView();
         root.getChildren().add(imageView);
 
-        comboBox = new ComboBox();
+        comboBox = new ComboBox<>();
         comboBox.getItems().addAll("MallardDuck", "RubberDuck", "ModelDuck");
         comboBox.setPromptText("Choose a duck");
         root.getChildren().add(comboBox);
@@ -70,9 +69,9 @@ public class UI {
 
         //ComboBox event listener
         comboBox.setOnAction(event -> {
-            String duckString = (String) comboBox.getValue();
+            String duckString = comboBox.getValue();
             try {
-                Class duckClass = Class.forName("duckApp.main.ducks." + duckString);
+                Class<?> duckClass = Class.forName("duckApp.main.ducks." + duckString);
                 duck = (Duck) duckClass.getConstructor().newInstance();
                 imageView.setImage(new Image(duck.getImagePath(), 300, 300, true, false, false));
                 errorLabel.setVisible(false);
