@@ -5,28 +5,31 @@ import java.util.*;
 
 public class UI {
 
+    // An application to add passwords to a user database.
     public static void main(String[] args) {
         UserDB db = new UserDB();
 
-        //Add passwords to users
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Username (* = stop):");
-        String username = scanner.nextLine();
-        while (!username.equals("*")) {
+        String username;
+        String password;
+        while (true) {
+            System.out.println("Type username to add a password (* = stop)");
+            username = scanner.nextLine();
+            if (username.equals("*")) break;
+
             //Check if user exists
-            if (!db.userExists(username)) {
-                System.out.println("User not found!");
+            if (username.isBlank() || !db.userExists(username)) {
+                System.out.println("Error: User not found!");
             } else {
                 System.out.println("New password:");
-                String password = scanner.nextLine();
-                if (db.addPassword(username, password)) {
+                password = scanner.nextLine();
+                try {
+                    db.addPassword(username, password);
                     System.out.println("New password successfully added.");
-                } else {
-                    System.out.println("Error: password already exists for this user!");
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
             }
-            System.out.println("Username (* = stop):");
-            username = scanner.nextLine();
         }
 	    scanner.close();
 

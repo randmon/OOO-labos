@@ -19,9 +19,11 @@ public class UserDB {
         return users.contains(new User(username));
     }
 
-    public boolean addPassword (String username, String password) {
+    public void addPassword (String username, String password) {
+        if (password == null || password.isBlank()) throw new IllegalArgumentException("Password cannot be empty!");
         User u = getUserByName(username);
-        return passwords.get(u).add(password);
+        boolean added = passwords.get(u).add(password);
+        if (!added) throw new IllegalArgumentException("Password already exists for this user!");
     }
 
     public String getPasswords() {
