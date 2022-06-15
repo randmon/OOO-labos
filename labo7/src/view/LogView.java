@@ -19,7 +19,6 @@ public class LogView extends VBox {
         list = new VBox();
         list.getStyleClass().add("logList");
         scrollPane.setContent(list);
-
     }
 
     public void updateDisplay(String entry, String event) {

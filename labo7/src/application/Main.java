@@ -1,6 +1,5 @@
 package application;
 
-
 import controller.CipherController;
 import controller.LogController;
 import javafx.application.Application;

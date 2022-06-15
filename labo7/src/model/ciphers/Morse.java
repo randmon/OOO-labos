@@ -1,7 +1,7 @@
 package model.ciphers;
 
 public class Morse implements Cipher {
-    private String[] morseCode
+    private final String[] morseCode
             = { ".-",   "-...", "-.-.", "-..",  ".",
             "..-.", "--.",  "....", "..",   ".---",
             "-.-",  ".-..", "--",   "-.",   "---",
