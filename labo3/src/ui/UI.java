@@ -59,12 +59,13 @@ public class UI {
 
 	public void addProduct() {
 		String title = JOptionPane.showInputDialog("Enter the title:");
+		if (title == null) return;
 		String type = JOptionPane.showInputDialog("""
 				Enter the type:
 				C - CD
 				G - Game
 				M - Movie""");
-
+		if (type == null) return;
 		try {
 			shop.addProduct(type, title);
 		} catch (IllegalArgumentException e) {
@@ -89,8 +90,7 @@ public class UI {
 		String idString = getID();
 		if (productExists(idString)) {
 			int id = Integer.parseInt(idString);
-			JOptionPane.showMessageDialog(null, shop.getProductByID(id));
-			String days = JOptionPane.showInputDialog("Enter the number of days:");
+			String days = JOptionPane.showInputDialog(shop.getProductByID(id) + "\n\nEnter the number of days:");
 			try {
 				JOptionPane.showMessageDialog(null, shop.getPrice(Integer.parseInt(days), id));
 			} catch (NumberFormatException e) {
