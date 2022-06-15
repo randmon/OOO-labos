@@ -11,15 +11,15 @@ public class Main {
         bank.addObserver(auditor);
         bank.addObserver(new AccountLogger(bank));
         bank.addAccount(111, 100);
-        nL();
+        newLine();
         bank.addAccount(444, 9999);
         bank.deposit(444, 1);
-        nL();
+        newLine();
         bank.deposit(111, 12345);
         bank.withdrawal(111, 12340);
     }
 
-    private static void nL() {
+    private static void newLine() {
         System.out.println("----");
     }
 }
