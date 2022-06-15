@@ -7,6 +7,6 @@ public class MallardDuck extends Duck {
     public MallardDuck() {
         setFlyBehaviour(new FlyWithWings());
         setQuackBehaviour(new Quack());
-        setImagePath("https://animals.net/wp-content/uploads/2018/07/Mallard-1-650x425.jpg");
+        setImagePath("https://www.allaboutbirds.org/guide/assets/photo/308743051-480px.jpg");
     }
 }

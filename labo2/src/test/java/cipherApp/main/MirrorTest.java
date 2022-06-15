@@ -1,7 +1,6 @@
 package cipherApp.main;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class MirrorTest {
@@ -25,5 +24,4 @@ public class MirrorTest {
         assertEquals(abc, sc.decode(cba));
         assertEquals(lorem, sc.decode(merol));
     }
-
 }
