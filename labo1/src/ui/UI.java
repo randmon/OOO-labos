@@ -89,8 +89,8 @@ public class UI {
 		String idString = getID();
 		if (productExists(idString)) {
 			int id = Integer.parseInt(idString);
-			JOptionPane.showMessageDialog(null, shop.getProductByID(id));
-			String days = JOptionPane.showInputDialog("Enter the number of days:");
+			String days = JOptionPane.showInputDialog(shop.getProductByID(id) + "\n\nEnter the number of days:");
+			if (days == null) return;
 			try {
 				JOptionPane.showMessageDialog(null, shop.getPrice(Integer.parseInt(days), id));
 			} catch (NumberFormatException e) {

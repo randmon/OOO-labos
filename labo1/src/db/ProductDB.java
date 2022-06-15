@@ -4,7 +4,6 @@ import domain.CD;
 import domain.Game;
 import domain.Movie;
 import domain.Product;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class ProductDB {
     public void addProduct(String type, String title) throws IllegalArgumentException {
         if (type == null || type.isBlank()) throw new IllegalArgumentException("Invalid type!");
         int newID = products.size()+1;
-        switch (type) {
+        switch (type.toUpperCase()) {
             case "M" -> products.add(new Movie(newID, title));
             case "G" -> products.add(new Game(newID, title));
             case "C" -> products.add(new CD(newID, title));
