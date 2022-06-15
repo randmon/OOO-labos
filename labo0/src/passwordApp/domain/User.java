@@ -1,4 +1,4 @@
-package domain;
+package passwordApp.domain;
 
 public record User(String username) {
 

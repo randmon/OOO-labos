@@ -1,5 +1,5 @@
-package ui;
-import domain.UserDB;
+package passwordApp.ui;
+import passwordApp.domain.UserDB;
 
 import java.util.*;
 
